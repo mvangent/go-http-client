@@ -8,11 +8,16 @@ import (
 	"github.com/vpofe/go-http-client/gohttp"
 )
 
+type User struct {
+	FirstName string `json "firstName"`
+	LastName  string `json "lastName"`
+}
+
 func getGithubClient() gohttp.HttpClient {
 	githubHttpClient := gohttp.New()
 
 	commonHeaders := make(http.Header)
-	commonHeaders.Set("Authorization", "Bearer 123456")
+	// commonHeaders.Set("Authorization", "Bearer 123456")
 
 	githubHttpClient.SetHeaders(commonHeaders)
 
@@ -20,7 +25,6 @@ func getGithubClient() gohttp.HttpClient {
 }
 
 func basicExample() {
-
 	client := getGithubClient()
 
 	headers := make(http.Header)
@@ -39,6 +43,25 @@ func basicExample() {
 	fmt.Println(string(bytes))
 }
 
+func createUser(user User) {
+	client := getGithubClient()
+
+	response, err := client.Post("https://api.github.com", nil, user)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(response.StatusCode)
+
+	bytes, _ := ioutil.ReadAll(response.Body)
+
+	fmt.Println(string(bytes))
+}
+
 func main() {
-	basicExample()
+	// basicExample()
+
+	futureMusic := User{"Future", "Music"}
+	createUser(futureMusic)
 }
