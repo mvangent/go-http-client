@@ -60,8 +60,8 @@ func createUser(user User) {
 }
 
 func main() {
-	// basicExample()
+	basicExample()
 
-	futureMusic := User{"Future", "Music"}
-	createUser(futureMusic)
+	//futureMusic := User{"Future", "Music"}
+	//createUser(futureMusic)
 }
