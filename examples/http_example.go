@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"github.com/vpofe/go-http-client/gohttp"
 )
@@ -14,15 +13,13 @@ type User struct {
 	LastName  string `json "lastName"`
 }
 
-func getGithubClient() gohttp.HttpClient {
-	githubHttpClient := gohttp.New()
-
+func getGithubClient() gohttp.Client {
 	commonHeaders := make(http.Header)
-	// commonHeaders.Set("Authorization", "Bearer 123456")
 
-	githubHttpClient.SetHeaders(commonHeaders)
-	githubHttpClient.DisableTimeouts(false)
-	githubHttpClient.SetConnectionTimeout(1 * time.Millisecond)
+	githubHttpClient := gohttp.NewBuilder().
+		SetHeaders(commonHeaders).
+		DisableTimeouts(false).
+		Build()
 
 	return githubHttpClient
 }

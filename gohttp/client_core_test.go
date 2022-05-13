@@ -12,7 +12,7 @@ func TestGetRequestHeaders(t *testing.T) {
 	commonHeaders.Set("Content-Type", "application/json")
 	commonHeaders.Set("User-Agent", "vpofes-http-client")
 
-	client.Headers = commonHeaders
+	client.builder.headers = commonHeaders
 
 	requestHeaders := make(http.Header)
 	requestHeaders.Set("X-Request-Id", "123-456")
