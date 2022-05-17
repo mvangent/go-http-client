@@ -1,15 +1,9 @@
-package main
+package examples
 
 import (
 	"fmt"
 	"net/http"
 	"time"
-
-	"github.com/vpofe/go-http-client/gohttp"
-)
-
-var (
-	client = getGithubClient()
 )
 
 // type User struct {
@@ -17,23 +11,12 @@ var (
 // 	LastName  string `json "lastName"`
 // }
 
-func getGithubClient() gohttp.Client {
-	commonHeaders := make(http.Header)
-
-	githubHttpClient := gohttp.NewBuilder().
-		SetHeaders(commonHeaders).
-		DisableTimeouts(true).
-		Build()
-
-	return githubHttpClient
-}
-
 func basicExample() {
 
 	headers := make(http.Header)
 	headers.Set("X-Weather", "Sunny in Berlin")
 
-	response, err := client.Get("https://api.github.com", headers)
+	response, err := httpClient.Get("https://api.github.com", headers)
 
 	if err != nil {
 		panic(err)
