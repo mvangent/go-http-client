@@ -1,7 +1,8 @@
 package gohttp
 
-var (
-	mocks map[string]*Mock
+import (
+	"fmt"
+	"net/http"
 )
 
 type Mock struct {
@@ -14,7 +15,17 @@ type Mock struct {
 	ResponseStatusCode int
 }
 
-func AddMock(mock Mock) {
-	key := mock.Method + mock.Url + mock.RequestBody
-	mocks[key] = &mock
+func (m *Mock) GetResponse() (*Response, error) {
+	if m.Error != nil {
+		return nil, m.Error
+	}
+
+	response := Response{
+		status:     fmt.Sprintf("%d %s", m.ResponseStatusCode, http.StatusText(m.ResponseStatusCode)),
+		statusCode: m.ResponseStatusCode,
+		headers:    map[string][]string{},
+		body:       []byte(m.ResponseBody),
+	}
+
+	return &response, nil
 }

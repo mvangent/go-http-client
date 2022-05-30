@@ -44,6 +44,11 @@ func (c *httpClient) do(method string, url string, headers http.Header, body int
 		return nil, err
 	}
 
+	if mock := mockupServer.getMock(method, url, string(requestBody)); mock != nil {
+		// FIXME: Move this logic out of production code
+		return mock.GetResponse()
+	}
+
 	request, err := http.NewRequest(method, url, bytes.NewBuffer(requestBody))
 
 	request.Header = fullHeaders
