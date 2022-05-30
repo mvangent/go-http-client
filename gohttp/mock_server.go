@@ -38,6 +38,12 @@ func AddMock(mock Mock) {
 	mockupServer.mocks[key] = &mock
 }
 
+func FlushMocks() {
+	mockupServer.serverMutex.Lock()
+	defer mockupServer.serverMutex.Unlock()
+	mockupServer.mocks = make(map[string]*Mock)
+}
+
 func (m *mockServer) getMockKey(method, url, body string) string {
 	return method + url + body
 }
