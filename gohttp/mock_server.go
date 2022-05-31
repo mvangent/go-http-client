@@ -79,7 +79,9 @@ func (m *mockServer) getMock(method, url, body string) *Mock {
 		return mock
 	}
 
+	errorMsg := fmt.Sprintf("There is no mock matching %s from %s with given body \n", method, url)
+
 	return &Mock{
-		Error: errors.New(fmt.Sprintln("There is no mock matching %s from %s with given body", method, url)),
+		Error: errors.New(errorMsg),
 	}
 }
