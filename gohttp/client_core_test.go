@@ -7,7 +7,8 @@ import (
 
 func TestGetRequestHeaders(t *testing.T) {
 	// Initialization
-	client := httpClient{}
+	client := httpClient{builder: &clientBuilder{}}
+
 	commonHeaders := make(http.Header)
 	commonHeaders.Set("Content-Type", "application/json")
 	commonHeaders.Set("User-Agent", "vpofes-http-client")

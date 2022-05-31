@@ -10,7 +10,6 @@ import (
 	"net"
 	"net/http"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -87,8 +86,6 @@ func (c *httpClient) getHttpClient() *http.Client {
 	if c.client != nil {
 		return c.client
 	}
-
-	c.clientOnce = sync.Once{}
 
 	c.clientOnce.Do(func() {
 		fmt.Println("***************** CREATING A FRESH CLIENT *****************")
