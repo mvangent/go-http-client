@@ -1,9 +1,11 @@
 package examples
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/vpofe/go-http-client/gohttp"
+	"github.com/vpofe/go-http-client/gomime"
 )
 
 var (
@@ -11,7 +13,12 @@ var (
 )
 
 func getHttpClient() gohttp.Client {
+	headers := make(http.Header)
+	headers.Set(gomime.HeaderContentType, gomime.ContentTypeJson)
+
 	client := gohttp.NewBuilder().
+		SetHeaders(headers).
+		SetUserAgent("vpofe-machine").
 		SetConnectionTimeout(2 * time.Second).
 		SetResponseTimeout(3 * time.Second).
 		Build()
