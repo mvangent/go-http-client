@@ -11,7 +11,7 @@ func PostRepoUrl() (*gohttp.Response, error) {
 		Name: "testing-repo",
 	}
 
-	response, err := httpClient.Post("https://api.github.com", nil, repo)
+	response, err := httpClient.Post("https://api.github.com", repo)
 
 	if err != nil {
 		return nil, err

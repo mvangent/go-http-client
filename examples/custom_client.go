@@ -18,6 +18,6 @@ func getCustomClient() gohttp.Client {
 	return customClient
 }
 
-func MakeRequestToGoogle() {
-	customClient.Get("https://api.google.com", nil)
+func MakeRequestToGoogleApi() {
+	customClient.Get("https://api.google.com")
 }
