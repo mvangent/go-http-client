@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -88,7 +87,11 @@ func (c *httpClient) getHttpClient() *http.Client {
 	}
 
 	c.clientOnce.Do(func() {
-		fmt.Println("***************** CREATING A FRESH CLIENT *****************")
+		if c.builder.client != nil {
+			c.client = c.builder.client
+			return
+		}
+
 		c.client = &http.Client{
 			Timeout: c.getConnectionTimeout() + c.getResponseTimeout(),
 			Transport: &http.Transport{

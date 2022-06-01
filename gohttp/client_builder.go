@@ -13,6 +13,7 @@ type ClientBuilder interface {
 	SetResponseTimeout(responseTimeout time.Duration) ClientBuilder
 	SetMaxIdleConnections(maxIdleConnections int) ClientBuilder
 	DisableTimeouts(disable bool) ClientBuilder
+	SetHttpClient(c *http.Client) ClientBuilder
 }
 
 type clientBuilder struct {
@@ -21,6 +22,7 @@ type clientBuilder struct {
 	connectionTimeout  time.Duration
 	responseTimeout    time.Duration
 	disableTimeouts    bool
+	client             *http.Client
 }
 
 func NewBuilder() ClientBuilder {
@@ -28,19 +30,19 @@ func NewBuilder() ClientBuilder {
 	return builder
 }
 
-func (b *clientBuilder) Build() Client {
-	client := httpClient{builder: b}
+func (cb *clientBuilder) Build() Client {
+	client := httpClient{builder: cb}
 	return &client
 }
 
-func (b *clientBuilder) SetHeaders(headers http.Header) ClientBuilder {
-	b.headers = headers
-	return b
+func (cb *clientBuilder) SetHeaders(headers http.Header) ClientBuilder {
+	cb.headers = headers
+	return cb
 }
 
-func (b *clientBuilder) SetConnectionTimeout(connectionTimeout time.Duration) ClientBuilder {
-	b.connectionTimeout = connectionTimeout
-	return b
+func (cb *clientBuilder) SetConnectionTimeout(connectionTimeout time.Duration) ClientBuilder {
+	cb.connectionTimeout = connectionTimeout
+	return cb
 }
 
 func (b *clientBuilder) SetResponseTimeout(responseTimeout time.Duration) ClientBuilder {
@@ -48,12 +50,18 @@ func (b *clientBuilder) SetResponseTimeout(responseTimeout time.Duration) Client
 	return b
 }
 
-func (b *clientBuilder) SetMaxIdleConnections(maxIdleConnections int) ClientBuilder {
-	b.maxIdleConnections = maxIdleConnections
-	return b
+func (cb *clientBuilder) SetMaxIdleConnections(maxIdleConnections int) ClientBuilder {
+	cb.maxIdleConnections = maxIdleConnections
+	return cb
 }
 
-func (b *clientBuilder) DisableTimeouts(disable bool) ClientBuilder {
-	b.disableTimeouts = disable
-	return b
+func (cb *clientBuilder) DisableTimeouts(disable bool) ClientBuilder {
+	cb.disableTimeouts = disable
+	return cb
+}
+
+func (cb *clientBuilder) SetHttpClient(c *http.Client) ClientBuilder {
+	cb.client = c
+
+	return cb
 }
