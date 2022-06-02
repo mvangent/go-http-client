@@ -3,6 +3,7 @@ package gohttp_mock
 import (
 	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"testing"
 
@@ -67,5 +68,22 @@ func TestSuccesfulMockedScenario(t *testing.T) {
 	assert.Nil(t, err)
 
 	assert.Equal(t, statusCode, response.StatusCode)
-	// assert.Equal(t, responseBody, response.Body)
+
+	defer response.Body.Close()
+
+	body, err := ioutil.ReadAll(response.Body)
+
+	assert.Nil(t, err)
+
+	assert.Equal(t, responseBody, string(body))
+
+	assert.Equal(t, 1, len(MockupServer.mocks))
+
+	MockupServer.Flush()
+
+	assert.Equal(t, 0, len(MockupServer.mocks))
+
+	MockupServer.Stop()
+
+	assert.Equal(t, false, MockupServer.IsEnabled())
 }
