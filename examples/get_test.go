@@ -4,10 +4,19 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"testing"
 
 	"github.com/vpofe/go-http-client/gohttp_mock"
 )
+
+func TestMain(m *testing.M) {
+	fmt.Println("Starting tests for package examples")
+
+	gohttp_mock.MockupServer.Start()
+
+	os.Exit(m.Run())
+}
 
 func TestGetEndpoints(t *testing.T) {
 	t.Run("TestErrorFetchingFromGithub", func(t *testing.T) {
