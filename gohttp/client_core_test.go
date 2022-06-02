@@ -3,6 +3,8 @@ package gohttp
 import (
 	"net/http"
 	"testing"
+
+	"github.com/vpofe/go-http-client/gomime"
 )
 
 func TestGetRequestHeaders(t *testing.T) {
@@ -10,8 +12,8 @@ func TestGetRequestHeaders(t *testing.T) {
 	client := httpClient{builder: &clientBuilder{}}
 
 	commonHeaders := make(http.Header)
-	commonHeaders.Set("Content-Type", "application/json")
-	commonHeaders.Set("User-Agent", "vpofes-http-client")
+	commonHeaders.Set(gomime.HeaderContentType, gomime.ContentTypeJson)
+	commonHeaders.Set(gomime.HeaderUserAgent, "vpofes-http-client")
 
 	client.builder.headers = commonHeaders
 
@@ -26,11 +28,11 @@ func TestGetRequestHeaders(t *testing.T) {
 		t.Error("We expect 3 headers")
 	}
 
-	if finalHeaders.Get("Content-Type") != "application/json" {
+	if finalHeaders.Get(gomime.HeaderContentType) != gomime.ContentTypeJson {
 		t.Error("Invalid Content-Type received")
 	}
 
-	if finalHeaders.Get("User-Agent") != "vpofes-http-client" {
+	if finalHeaders.Get(gomime.HeaderUserAgent) != "vpofes-http-client" {
 		t.Error("Invalid User-Agent received")
 	}
 
@@ -44,7 +46,7 @@ func TestGetRequestBodyNilBody(t *testing.T) {
 	client := httpClient{}
 
 	t.Run("noBodyNilResponse", func(t *testing.T) {
-		requestBody, err := client.getRequestBody("application/json", nil)
+		requestBody, err := client.getRequestBody(gomime.ContentTypeJson, nil)
 
 		if err != nil {
 			t.Error("No error expected when passing a nil body")
@@ -58,7 +60,7 @@ func TestGetRequestBodyNilBody(t *testing.T) {
 	t.Run("BodyWithJson", func(t *testing.T) {
 		requestBody := []string{"one", "two"}
 
-		body, err := client.getRequestBody("application/json", requestBody)
+		body, err := client.getRequestBody(gomime.ContentTypeJson, requestBody)
 
 		if err != nil {
 			t.Error("No error expected when marshalling a slice as json")
@@ -72,7 +74,7 @@ func TestGetRequestBodyNilBody(t *testing.T) {
 	t.Run("BodyWithXml", func(t *testing.T) {
 		requestBody := []string{"one", "two"}
 
-		body, err := client.getRequestBody("application/xml", requestBody)
+		body, err := client.getRequestBody(gomime.ContentTypeXml, requestBody)
 
 		if err != nil {
 			t.Error("No error expected when marshalling a slice as xml")
