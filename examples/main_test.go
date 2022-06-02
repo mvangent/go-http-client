@@ -11,7 +11,7 @@ import (
 func TestMain(m *testing.M) {
 	fmt.Println("Starting tests for package examples")
 
-	gohttp_mock.StartMockServer()
+	gohttp_mock.MockupServer.Start()
 
 	os.Exit(m.Run())
 }

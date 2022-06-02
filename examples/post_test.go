@@ -9,9 +9,9 @@ import (
 
 func TestPostEndpoints(t *testing.T) {
 	t.Run("TestErrorPostingToGithub", func(t *testing.T) {
-		gohttp_mock.FlushMocks()
+		gohttp_mock.MockupServer.Flush()
 
-		gohttp_mock.AddMock(
+		gohttp_mock.MockupServer.AddMock(
 			gohttp_mock.Mock{
 				Method:       http.MethodPost,
 				Url:          "https://api.github.com",

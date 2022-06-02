@@ -46,11 +46,6 @@ func (c *httpClient) do(method string, url string, headers http.Header, body int
 		return nil, err
 	}
 
-	if mock := gohttp_mock.GetMock(method, url, string(requestBody)); mock != nil {
-		// FIXME: Move this logic out of production code
-		return mock.GetResponse()
-	}
-
 	request, err := http.NewRequest(method, url, bytes.NewBuffer(requestBody))
 
 	request.Header = fullHeaders
@@ -85,7 +80,11 @@ func (c *httpClient) do(method string, url string, headers http.Header, body int
 	return &finalResponse, nil
 }
 
-func (c *httpClient) getHttpClient() *http.Client {
+func (c *httpClient) getHttpClient() core.HttpClient {
+	if gohttp_mock.MockupServer.IsEnabled() {
+		return gohttp_mock.MockupServer.GetClient()
+	}
+
 	if c.client != nil {
 		return c.client
 	}

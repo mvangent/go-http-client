@@ -11,9 +11,9 @@ import (
 
 func TestGetEndpoints(t *testing.T) {
 	t.Run("TestErrorFetchingFromGithub", func(t *testing.T) {
-		gohttp_mock.FlushMocks()
+		gohttp_mock.MockupServer.Flush()
 
-		gohttp_mock.AddMock(gohttp_mock.Mock{
+		gohttp_mock.MockupServer.AddMock(gohttp_mock.Mock{
 			Method: http.MethodGet,
 			Url:    "https://api.github.com",
 			Error:  errors.New("timeout getting github endpoints"),
@@ -35,9 +35,9 @@ func TestGetEndpoints(t *testing.T) {
 	})
 
 	t.Run("TestErrorUnmarshalResponseBody", func(t *testing.T) {
-		gohttp_mock.FlushMocks()
+		gohttp_mock.MockupServer.Flush()
 
-		gohttp_mock.AddMock(gohttp_mock.Mock{
+		gohttp_mock.MockupServer.AddMock(gohttp_mock.Mock{
 			Method:             http.MethodGet,
 			Url:                "https://api.github.com",
 			ResponseStatusCode: http.StatusOK,
@@ -62,9 +62,9 @@ func TestGetEndpoints(t *testing.T) {
 	})
 
 	t.Run("TestNoError", func(t *testing.T) {
-		gohttp_mock.FlushMocks()
+		gohttp_mock.MockupServer.Flush()
 
-		gohttp_mock.AddMock(gohttp_mock.Mock{
+		gohttp_mock.MockupServer.AddMock(gohttp_mock.Mock{
 			Method:             http.MethodGet,
 			Url:                "https://api.github.com",
 			ResponseStatusCode: http.StatusOK,

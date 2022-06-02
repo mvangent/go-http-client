@@ -3,48 +3,61 @@ package gohttp_mock
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"errors"
-	"fmt"
 	"strings"
 	"sync"
-)
 
-var (
-	mockupServer = mockServer{mocks: make(map[string]*Mock)}
+	"github.com/vpofe/go-http-client/core"
 )
 
 type mockServer struct {
 	enabled     bool
 	serverMutex sync.Mutex
 	mocks       map[string]*Mock
+
+	httpClient core.HttpClient
 }
 
-func StartMockServer() {
-	mockupServer.serverMutex.Lock()
-	defer mockupServer.serverMutex.Unlock()
+var (
+	MockupServer = mockServer{
+		mocks:      make(map[string]*Mock),
+		httpClient: &httpClientMock{},
+	}
+)
 
-	mockupServer.enabled = true
+func (m *mockServer) GetClient() core.HttpClient {
+	return m.httpClient
 }
 
-func StopMockServer() {
-	mockupServer.serverMutex.Lock()
-	defer mockupServer.serverMutex.Unlock()
+func (m *mockServer) Start() {
+	m.serverMutex.Lock()
+	defer m.serverMutex.Unlock()
 
-	mockupServer.enabled = false
+	m.enabled = true
 }
 
-func AddMock(mock Mock) {
-	mockupServer.serverMutex.Lock()
-	defer mockupServer.serverMutex.Unlock()
+func (m *mockServer) Stop() {
+	m.serverMutex.Lock()
+	defer m.serverMutex.Unlock()
 
-	key := mockupServer.getMockKey(mock.Method, mock.Url, mock.RequestBody)
-	mockupServer.mocks[key] = &mock
+	m.enabled = false
 }
 
-func FlushMocks() {
-	mockupServer.serverMutex.Lock()
-	defer mockupServer.serverMutex.Unlock()
-	mockupServer.mocks = make(map[string]*Mock)
+func (m *mockServer) AddMock(mock Mock) {
+	m.serverMutex.Lock()
+	defer m.serverMutex.Unlock()
+
+	key := m.getMockKey(mock.Method, mock.Url, mock.RequestBody)
+	m.mocks[key] = &mock
+}
+
+func (m *mockServer) Flush() {
+	m.serverMutex.Lock()
+	defer m.serverMutex.Unlock()
+	m.mocks = make(map[string]*Mock)
+}
+
+func (m *mockServer) IsEnabled() bool {
+	return m.enabled
 }
 
 func (m *mockServer) getMockKey(method, url, body string) string {
@@ -68,20 +81,4 @@ func (m *mockServer) cleanBody(body string) string {
 	body = strings.ReplaceAll(body, " ", "")
 
 	return body
-}
-
-func GetMock(method, url, body string) *Mock {
-	if !mockupServer.enabled {
-		return nil
-	}
-
-	if mock := mockupServer.mocks[mockupServer.getMockKey(method, url, body)]; mock != nil {
-		return mock
-	}
-
-	errorMsg := fmt.Sprintf("There is no mock matching %s from %s with given body \n", method, url)
-
-	return &Mock{
-		Error: errors.New(errorMsg),
-	}
 }
