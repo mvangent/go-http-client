@@ -4,15 +4,15 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/vpofe/go-http-client/gohttp"
+	"github.com/vpofe/go-http-client/gohttp_mock"
 )
 
 func TestPostEndpoints(t *testing.T) {
 	t.Run("TestErrorPostingToGithub", func(t *testing.T) {
-		gohttp.FlushMocks()
+		gohttp_mock.FlushMocks()
 
-		gohttp.AddMock(
-			gohttp.Mock{
+		gohttp_mock.AddMock(
+			gohttp_mock.Mock{
 				Method:       http.MethodPost,
 				Url:          "https://api.github.com",
 				RequestBody:  `{"name":"testing-repo"}`,

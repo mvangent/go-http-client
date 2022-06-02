@@ -9,7 +9,5 @@ import (
 func TestMain(m *testing.M) {
 	fmt.Println("Starting tests for package gohttp")
 
-	StopMockServer()
-
 	os.Exit(m.Run())
 }

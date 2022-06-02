@@ -1,12 +1,12 @@
 package examples
 
-import "github.com/vpofe/go-http-client/gohttp"
+import "github.com/vpofe/go-http-client/core"
 
 type RepoUrl struct {
 	Name string `json:"name"`
 }
 
-func PostRepoUrl() (*gohttp.Response, error) {
+func PostRepoUrl() (*core.Response, error) {
 	repo := RepoUrl{
 		Name: "testing-repo",
 	}
