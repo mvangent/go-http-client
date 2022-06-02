@@ -5,8 +5,19 @@ import (
 	"time"
 )
 
+type ReadOnlyBuilderConfig struct {
+	Headers            http.Header
+	MaxIdleConnections int
+	ConnectionTimeout  time.Duration
+	ResponseTimeout    time.Duration
+	DisableTimeouts    bool
+	UserAgent          string
+	CustomClient       http.Client
+}
+
 type ClientBuilder interface {
 	Build() Client
+	ReadBuilderConfig() ReadOnlyBuilderConfig
 
 	SetHeaders(headers http.Header) ClientBuilder
 	SetConnectionTimeout(connectionTimeout time.Duration) ClientBuilder
@@ -71,4 +82,18 @@ func (cb *clientBuilder) SetHttpClient(c *http.Client) ClientBuilder {
 func (cb *clientBuilder) SetUserAgent(userAgent string) ClientBuilder {
 	cb.userAgent = userAgent
 	return cb
+}
+
+func (cb *clientBuilder) ReadBuilderConfig() ReadOnlyBuilderConfig {
+	readOnlyConfig := ReadOnlyBuilderConfig{
+		Headers:            cb.headers,
+		MaxIdleConnections: cb.maxIdleConnections,
+		ConnectionTimeout:  cb.connectionTimeout,
+		ResponseTimeout:    cb.responseTimeout,
+		DisableTimeouts:    cb.disableTimeouts,
+		UserAgent:          cb.userAgent,
+		CustomClient:       *cb.client,
+	}
+
+	return readOnlyConfig
 }
