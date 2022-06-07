@@ -11,6 +11,14 @@ import (
 func TestClientBuilder(t *testing.T) {
 	builder := NewBuilder()
 
+	client := builder.Build()
+
+	assert.NotNil(t, client)
+}
+
+func TestClientBuilderConfig(t *testing.T) {
+	builder := NewBuilder()
+
 	assert.NotNil(t, builder)
 
 	var (
