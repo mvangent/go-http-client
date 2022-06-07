@@ -26,8 +26,6 @@ var travelInquiry = TravelInquiry{
 }
 
 func TestSuccesfulMockedScenario(t *testing.T) {
-	assert.NotNil(t, MockupServer)
-
 	MockupServer.Start()
 
 	assert.Equal(t, true, MockupServer.IsEnabled())
@@ -90,8 +88,6 @@ func TestSuccesfulMockedScenario(t *testing.T) {
 }
 
 func TestErrorMockedScenario(t *testing.T) {
-	assert.NotNil(t, MockupServer)
-
 	MockupServer.Start()
 
 	assert.Equal(t, true, MockupServer.IsEnabled())
