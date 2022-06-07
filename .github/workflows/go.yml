@@ -45,9 +45,7 @@ jobs:
         with:
           go-version: 1.18
       - name: Run Test
-        run: |
-          go test -v ./... -covermode=count -coverprofile=coverage.out
-          go tool cover -func=coverage.out -o=coverage.out
+        run: make test_report
 
       - name: Go Coverage Badge # Pass the `coverage.out` output to this action
         uses: tj-actions/coverage-badge-go@v1.2
