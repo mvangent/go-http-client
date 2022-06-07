@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build_and_vet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,10 +20,8 @@ jobs:
       - name: Build
         run: go build -v ./...
 
-      - name: Run Gosec Security Scanner
-        uses: securego/gosec@master
-        with:
-          args: ./...
+      - name: Vet
+        run: go vet ./...
 
   security:
     runs-on: ubuntu-latest
