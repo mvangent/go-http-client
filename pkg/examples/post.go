@@ -1,6 +1,6 @@
 package examples
 
-import "github.com/vpofe/go-http-client/core"
+import "github.com/vpofe/go-http-client/pkg/core"
 
 type RepoUrl struct {
 	Name string `json:"name"`

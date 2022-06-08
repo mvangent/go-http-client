@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/vpofe/go-http-client/gohttp_mock"
+	"github.com/vpofe/go-http-client/pkg/gohttp_mock"
 )
 
 func TestPostEndpoints(t *testing.T) {

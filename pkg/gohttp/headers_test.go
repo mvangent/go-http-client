@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/vpofe/go-http-client/gomime"
+	"github.com/vpofe/go-http-client/pkg/gomime"
 )
 
 func TestAllHeaders(t *testing.T) {

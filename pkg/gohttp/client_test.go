@@ -74,5 +74,5 @@ func TestReponseTimeout(t *testing.T) {
 }
 
 func TestPrivateDo(t *testing.T) {
-	// github.com/vpofe/go-http-client/gohttp/client_core.go:40: do 0.0%
+	// github.com/vpofe/go-http-client/pkg/gohttp/client_core.go:40: do 0.0%
 }

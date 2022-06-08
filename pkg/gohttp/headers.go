@@ -3,7 +3,7 @@ package gohttp
 import (
 	"net/http"
 
-	"github.com/vpofe/go-http-client/gomime"
+	"github.com/vpofe/go-http-client/pkg/gomime"
 )
 
 func getHeaders(headers ...http.Header) http.Header {

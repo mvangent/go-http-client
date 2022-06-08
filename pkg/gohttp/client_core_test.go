@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/vpofe/go-http-client/gomime"
+	"github.com/vpofe/go-http-client/pkg/gomime"
 )
 
 func TestGetRequestHeaders(t *testing.T) {

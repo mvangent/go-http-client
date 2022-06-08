@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/vpofe/go-http-client/core"
+	"github.com/vpofe/go-http-client/pkg/core"
 )
 
 type mockServer struct {
