@@ -1,4 +1,4 @@
-![Coverage](https://img.shields.io/badge/Coverage-70.8%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-89.2%25-brightgreen)
 ![CI main](https://github.com/vpofe/go-http-client/actions/workflows/go.yml/badge.svg?branch=main)
 
 # go-http-client
