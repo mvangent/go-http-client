@@ -3,7 +3,6 @@ package examples
 import (
 	"net/http"
 
-	"github.com/vpofe/go-http-client/pkg/core"
 	"github.com/vpofe/go-http-client/pkg/gohttp"
 )
 
@@ -17,14 +16,4 @@ func getCustomClient() gohttp.Client {
 	customClient := gohttp.NewBuilder().SetHttpClient(&simpleClient).Build()
 
 	return customClient
-}
-
-func MakeRequestToGoogleApi() (*core.Response, error) {
-	response, err := customClient.Get("https://api.google.com")
-
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
 }

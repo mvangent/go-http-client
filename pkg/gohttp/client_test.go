@@ -72,7 +72,3 @@ func TestReponseTimeout(t *testing.T) {
 
 	assert.Equal(t, defaultResponseTimeout, client.getResponseTimeout())
 }
-
-func TestPrivateDo(t *testing.T) {
-	// github.com/vpofe/go-http-client/pkg/gohttp/client_core.go:40: do 0.0%
-}
