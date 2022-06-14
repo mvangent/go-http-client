@@ -40,7 +40,7 @@ File to initialize the http library as a singleton
 
 ```
 
-Get example with the singleton instance
+Get example with a singleton instance
 
 ```
     package examples
