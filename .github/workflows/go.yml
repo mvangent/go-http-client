@@ -56,22 +56,23 @@ jobs:
         uses: tj-actions/verify-changed-files@v9.2
         id: verify-changed-files
         with:
-          files: README.md
+          files:
+            README.md
 
-      - name: Commit changes
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add README.md
-          git commit -m "chore: Updated coverage badge."
-
-      - name: Push changes
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+            ##- name: Commit changes
+            #if: steps.verify-changed-files.outputs.files_changed == 'true'
+            #  run: |
+            #git config --local user.email "action@github.com"
+            #git config --local user.name "GitHub Action"
+            #git add README.md
+            #git commit -m "chore: Updated coverage badge."
+            #
+            #- name: Push changes
+            #if: steps.verify-changed-files.outputs.files_changed == 'true'
+            #uses: ad-m/github-push-action@master
+            #with:
+            #github_token: ${{ secrets.GITHUB_TOKEN }}
+            #branch: ${{ github.head_ref }}
   lint:
     name: "Lint (statischeck)"
     runs-on: ubuntu-latest
