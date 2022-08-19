@@ -48,7 +48,7 @@ jobs:
         run: make test_report
 
       - name: Go Coverage Badge # Pass the `coverage.out` output to this action
-        uses: tj-actions/coverage-badge-go@v1.2
+        uses: tj-actions/coverage-badge-go@v2
         with:
           filename: coverage.out
 
