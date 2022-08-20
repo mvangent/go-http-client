@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/vpofe/go-http-client/pkg/core"
-	"github.com/vpofe/go-http-client/pkg/gohttp_mock"
-	"github.com/vpofe/go-http-client/pkg/gomime"
+	"github.com/vpofe/go-http-client/core"
+	"github.com/vpofe/go-http-client/gohttp_mock"
+	"github.com/vpofe/go-http-client/gomime"
 )
 
 const (
