@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/vpofe/go-http-client/pkg/gohttp_mock"
+	"github.com/vpofe/go-http-client/gohttp_mock"
 )
 
 func TestMain(m *testing.M) {

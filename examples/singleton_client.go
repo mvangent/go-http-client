@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/vpofe/go-http-client/pkg/gohttp"
-	"github.com/vpofe/go-http-client/pkg/gomime"
+	"github.com/vpofe/go-http-client/gohttp"
+	"github.com/vpofe/go-http-client/gomime"
 )
 
 var (

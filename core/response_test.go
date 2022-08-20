@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/vpofe/go-http-client/pkg/gomime"
+	"github.com/vpofe/go-http-client/gomime"
 )
 
 type Train struct {
